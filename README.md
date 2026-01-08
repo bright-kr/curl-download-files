@@ -1,42 +1,42 @@
-# The cURL Guide on Downloading Files
+# 파일 다운로드를 위한 cURL 가이드
 
-[![Promo](https://github.com/luminati-io/LinkedIn-Scraper/blob/main/Proxies%20and%20scrapers%20GitHub%20bonus%20banner.png)](https://brightdata.com/) 
+[![Promo](https://github.com/luminati-io/LinkedIn-Scraper/blob/main/Proxies%20and%20scrapers%20GitHub%20bonus%20banner.png)](https://brightdata.co.kr/) 
 
-In this guide, you will see:
+이 가이드에서는 다음 내용을 확인하실 수 있습니다:
 
-- [The basic cURL download file syntax](#basic-curl-download-file-syntax)
-- [How to handle more complex scenarios when downloading files with cURL](#using-curl-to-download-a-file-advanced-options)
-- [How to download multiple files at once](#how-to-download-multiple-files-with-curl)
-- [Some best practices for using cURL effectively](#best-practices-when-downloading-files-with-curl)
-- [A quick comparison between cURL and Wget](#curl-vs-wget-for-downloading-files)
+- [기본 cURL 파일 다운로드 문법](#basic-curl-download-file-syntax)
+- [cURL로 파일을 다운로드할 때 더 복잡한 시나리오를 처리하는 방법](#using-curl-to-download-a-file-advanced-options)
+- [여러 파일을 한 번에 다운로드하는 방법](#how-to-download-multiple-files-with-curl)
+- [cURL을 효과적으로 사용하기 위한 몇 가지 모범 사례](#best-practices-when-downloading-files-with-curl)
+- [cURL과 Wget 간의 빠른 비교](#curl-vs-wget-for-downloading-files)
 
-Let’s dive in!
+바로 시작해 보겠습니다!
 
 ---
 
 ## Basic cURL Download File Syntax
 
-Below is the most basic cURL download file syntax:
+아래는 가장 기본적인 cURL 파일 다운로드 문법입니다:
 
 ```powershell
 curl -O <file_url>
 ```
 
-> 💡 **Important:**
-> On Windows, `curl` is an alias for [`Invoke-WebRequest`](https://github.com/luminati-io/Invoke-web-request-proxy) in Windows PowerShell. To avoid the conflict, replace `curl` with `curl.exe`.
+> 💡 **중요:**
+> Windows에서는 `curl`이 Windows PowerShell에서 [`Invoke-WebRequest`](https://github.com/luminati-io/Invoke-web-request-proxy)의 별칭(alias)입니다. 충돌을 피하려면 `curl`을 `curl.exe`로 바꾸어 사용하십시오.
 
-The [`-O`](https://curl.se/docs/manpage.html#-O) and `--remote-name` flags tell cURL to save the downloaded file with its original name:
+[`-O`](https://curl.se/docs/manpage.html#-O) 및 `--remote-name` 플래그는 cURL이 다운로드한 파일을 원래 이름으로 저장하도록 지시합니다:
 
 ```powershell
 curl --remote-name <file_url>
 ```  
-For example, consider the following download file cURL command:
+예를 들어, 다음과 같은 파일 다운로드 cURL 명령을 고려해 보십시오:
 
 ```powershell
 curl -O "https://i.imgur.com/CSRiAeN.jpg"
 ```
 
-This will produce an output with a download progress bar as below:
+그러면 아래와 같이 다운로드 진행률 표시줄이 포함된 출력이 생성됩니다:
 
 ```
 % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
@@ -44,69 +44,69 @@ This will produce an output with a download progress bar as below:
 100 35354  100 35354    0     0   155k      0 --:--:-- --:--:-- --:--:--  158k
 ```
 
-When the progress bar reaches 100%, a file named `CSRiAeN.jpg` will appear in the folder where you ran the cURL command:
+진행률 표시줄이 100%에 도달하면, cURL 명령을 실행한 폴더에 `CSRiAeN.jpg`라는 파일이 나타납니다:
 
 ![The downloaded CSRiAeN.jpg file in the folder where cURL was launched](https://github.com/luminati-io/curl-download-files/blob/main/image-37.png)
 
-For more information on cURL and its options, [read our cURL guide](https://brightdata.com/blog/web-data/what-is-curl).
+cURL 및 해당 옵션에 대한 자세한 내용은 [cURL 가이드를 읽어보십시오](https://brightdata.co.kr/blog/web-data/what-is-curl).
 
 ## Using cURL to Download a File: Advanced Options
 
-Let's learn some additional options.
+추가 옵션 몇 가지를 알아보겠습니다.
 
 ### Change Downloaded File Name
 
-By default, the `-O` option saves the dowloaded file under its original name. If the remote file in the URL does not include a name, cURL creates a file with no extension called `curl_response`:
+기본적으로 `-O` 옵션은 다운로드한 파일을 원래 이름으로 저장합니다. URL의 원격 파일에 이름이 포함되어 있지 않으면, cURL은 확장자가 없는 `curl_response`라는 파일을 생성합니다:
 
 ![The default curl_response file in the folder where cURL was launched](https://github.com/luminati-io/curl-download-files/blob/main/image-38.png)
 
-cURL will also print a warning to inform you of that behavior:
+또한 cURL은 해당 동작을 알리기 위해 경고를 출력합니다:
 
 ```
 Warning: No remote file name, uses "curl_response"
 ```
 
-To specify a custom name for the downloaded file, use the [`-o`](https://curl.se/docs/manpage.html#-o) (or `--output`) flag:
+다운로드한 파일에 사용자 지정 이름을 지정하려면, [`-o`](https://curl.se/docs/manpage.html#-o) (또는 `--output`) 플래그를 사용하십시오:
 
 ```powershell
 curl "https://i.imgur.com/CSRiAeN.jpg" -o "logo.jpg"
 ```
 
-cURL will perform a GET request to the specified file URL and save the downloaded content under the name specified after `-o`. This time, the output file will be a `logo.jpg` file:
+cURL은 지정된 파일 URL로 GET リクエスト를 수행하고 다운로드된 콘텐츠를 `-o` 뒤에 지정된 이름으로 저장합니다. 이번에는 출력 파일이 `logo.jpg` 파일이 됩니다:
 
 ![The downloaded logo.jpg file in the folder where cURL was launched](https://github.com/luminati-io/curl-download-files/blob/main/image-39.png)
 
 ### Follow Redirects
 
-Some URLs do not directly point to the desired file and require automatic redirects to reach the final destination.
+일부 URL은 원하는 파일을 직접 가리키지 않으며, 최종 목적지에 도달하기 위해 자동 리다이렉트가 필요합니다.
 
-To instruct cURL to follow redirects, use the [`-L`](https://curl.se/docs/manpage.html#-L) option:
+cURL이 리다이렉트를 따라가도록 지시하려면 [`-L`](https://curl.se/docs/manpage.html#-L) 옵션을 사용하십시오:
 
 ```powershell
 curl -O -L "<file_url>"
 ```
 
-Otherwise, cURL will output the redirection response headers and not follow the new location provided in the `Location` header.
+그렇지 않으면 cURL은 리다이렉션 レスポンス ヘッダー를 출력하고 `Location` ヘッダー에 제공된 새 위치를 따라가지 않습니다.
 
 ### Authenticate to the Server
 
-Some servers restrict access and require user authentication. To perform basic HTTP or FTP authentication, use the [`-u`](https://curl.se/docs/manpage.html#-u) (or `--user`) option and specify a username and password in the following format:
+일부 서버는 접근을 제한하고 사용자 認証을 요구합니다. 기본 HTTP 또는 FTP 認証을 수행하려면 [`-u`](https://curl.se/docs/manpage.html#-u) (또는 `--user`) 옵션을 사용하고 다음 형식으로 사용자 이름과 비밀번호를 지정하십시오:
 
 ```powershell
 <username>:<password>
 ```
 
-The format makes it impossible to include a colon in the username. However, the password can contain a colon.
+이 형식에서는 사용자 이름에 콜론을 포함할 수 없습니다. 그러나 비밀번호에는 콜론을 포함할 수 있습니다.
 
-The `<password>` string is optional. If you only specify the username, cURL will prompt you to enter the password.
+`<password>` 문자열은 선택 사항입니다. 사용자 이름만 지정하면 cURL이 비밀번호 입력을 요청합니다.
 
-Here is the syntax for downloading a file with cURL using server authentication:
+서버 認証을 사용하여 cURL로 파일을 다운로드하는 문법은 다음과 같습니다:
 
 ```powershell
 curl -O -u <username>:<password> <file_url>
 ```
 
-For example, you can download a file from a URL with authentication using this command:
+예를 들어, 다음 명령을 사용하면 認証이 필요한 URL에서 파일을 다운로드할 수 있습니다:
 
 ```powershell
 curl -O -u "myUser:myPassword" "https://example.com/secret.txt"
@@ -114,12 +114,12 @@ curl -O -u "myUser:myPassword" "https://example.com/secret.txt"
 
 ### Impose Bandwidth Restrictions
 
-To avoid using the full available bandwidth, use the [`--limit-rate`](https://curl.se/docs/manpage.html#--limit-rate) option followed by the maximum download speed you want to set:
+사용 가능한 전체 帯域幅을 사용하지 않으려면, [`--limit-rate`](https://curl.se/docs/manpage.html#--limit-rate) 옵션 뒤에 설정하려는 최대 다운로드 속도를 지정하십시오:
 
 ```powershell
 curl -O --limit-rate 5k "https://i.imgur.com/CSRiAeN.jpg"
 ```
-The output will be similar to this:
+출력은 다음과 비슷합니다:
 
 ```
   % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
@@ -127,25 +127,25 @@ The output will be similar to this:
 100 35354  100 35354    0     0   5166      0  0:00:06  0:00:06 --:--:--  5198
 ```
 
-The `--limit-rate` option helps control bandwidth usage to avoid overloading the network, comply with bandwidth restrictions, or simulate slower network conditions for testing purposes.
+`--limit-rate` 옵션은 네트워크 과부하를 방지하고, 帯域幅 제한을 준수하거나, 테스트 목적의 느린 네트워크 조건을 시뮬레이션하기 위해 帯域幅 사용량을 제어하는 데 도움이 됩니다.
 
 ### Download Through a Proxy Server
 
-To maintain privacy or avoid [anti-bot measures like rate limiting](https://brightdata.com/blog/web-data/anti-scraping-techniques), mask your IP and route your request through a proxy using the [`-x`](https://curl.se/docs/manpage.html#-x) (or `--proxy`) option:
+프라이버시를 유지하거나 [レート制限 같은 アンチボット 조치](https://brightdata.co.kr/blog/web-data/anti-scraping-techniques)를 피하려면, IPアドレス를 숨기고 [`-x`](https://curl.se/docs/manpage.html#-x) (또는 `--proxy`) 옵션을 사용해 プロキシ를 통해 リクエスト를 라우팅하십시오:
 
 ```powershell
 curl -x <proxy_url> -O <file_url>
 ```
 
-`<proxy_url>` must be specified in the following format:
+`<proxy_url>`은 다음 형식으로 지정해야 합니다:
 
 ```powershell
 [protocol://]host[:port]
 ```
 
-The proxy URL will vary depending on whether you are using an HTTP, HTTPS, or SOCKS proxy. For more detailed instructions, refer to our [cURL proxy integration guide](https://brightdata.com/blog/proxy-101/curl-with-proxies).
+프로キ시 URL은 HTTP, HTTPS 또는 SOCKS プロキシ를 사용하는지에 따라 달라집니다. 더 자세한 지침은 [cURL プロキ시 통합 가이드](https://brightdata.co.kr/blog/proxy-101/curl-with-proxies)를 참조하십시오.
 
-For example, if you are using an HTTP proxy, the command would become:
+예를 들어 HTTP プロキ시를 사용한다면, 명령은 다음과 같습니다:
 
 ```powershell
 curl -x "http://proxy.example.com:8080" -O "https://i.imgur.com/CSRiAeN.jpg"
@@ -153,23 +153,23 @@ curl -x "http://proxy.example.com:8080" -O "https://i.imgur.com/CSRiAeN.jpg"
 
 ### Perform Background Downloads
 
-To disable the progress bar and error messages in the output, enable the “quiet” mode using the [`-s`](https://curl.se/docs/manpage.html#-s) (or `--silent`) option:
+출력에서 진행률 표시줄과 오류 메시지를 비활성화하려면, [`-s`](https://curl.se/docs/manpage.html#-s) (또는 `--silent`) 옵션을 사용하여 “quiet” 모드를 활성화하십시오:
 
 ```powershell
 curl -O -s "https://i.imgur.com/CSRiAeN.jpg"
 ```
 
-If the download is successful, the file will appear in the current directory without feedback in the terminal.
+다운로드가 성공하면 터미널에 피드백 없이 현재 디렉터리에 파일이 나타납니다.
 
 ### Print Verbose Detail Information
 
-In case of an error or to better understand what cURL is doing behind the scenes, use the verbose mode by appending the [`-v`](https://curl.se/docs/manpage.html#-v) (or `--verbose`) option:
+오류가 발생했거나 cURL이 내부적으로 무엇을 수행하는지 더 잘 이해하려면, [`-v`](https://curl.se/docs/manpage.html#-v) (또는 `--verbose`) 옵션을 추가하여 verbose 모드를 사용하십시오:
 
 ```powershell
 curl -O -v "https://i.imgur.com/CSRiAeN.jpg"
 ```
 
-This will turn on additional output with detailed information:
+그러면 자세한 정보가 포함된 추가 출력이 활성화됩니다:
 
 ```
 * IPv6: (none)
@@ -217,13 +217,13 @@ This will turn on additional output with detailed information:
 
 ### Set a Simplified Progress Bar
 
-You can enable a simpler progress bar with `-#` (or `--progress-bar`) option:
+`-#` (또는 `--progress-bar`) 옵션을 사용하면 더 간단한 진행률 표시줄을 활성화할 수 있습니다:
 
 ```powershell
 curl -O -# "https://i.imgur.com/CSRiAeN.jpg"
 ```
 
-This will display a progress bar using the `#` character, which will incrementally fill as the file downloads:
+그러면 파일이 다운로드되는 동안 `#` 문자로 진행률 표시줄이 표시되며, 점진적으로 채워집니다:
 
 ```
 ########################################################### 100.0%
@@ -233,13 +233,13 @@ This will display a progress bar using the `#` character, which will increment
 
 ### Range File Download
 
-You can download multiple files with the same remote URL by specifying them using braces `{}`:
+중괄호 `{}`를 사용해 동일한 원격 URL의 여러 파일을 지정하여 다운로드할 수 있습니다:
 
 ```powershell
 curl -O "https://example.com/images/{1.jpg,2.jpg,3.jpg}"
 ```
 
-This will download the three specified files:
+그러면 지정한 세 파일이 다운로드됩니다:
 
 ```
 1.jpg
@@ -247,24 +247,24 @@ This will download the three specified files:
 3.jpg
 ```
 
-In this particular case, you can also use the common regexp `[]` syntax:
+이 특정 경우에는 일반적인 정규표현식 `[]` 문법을 사용할 수도 있습니다:
 
 ```powershell
 curl -O "https://example.com/files/file[1-3].jpg"
 ```
 
-> **Note:**\
-> All custom options (such as `-s` for silent mode or `--limit-rate` for bandwidth restrictions) will be applied to all the files being downloaded.
+> **참고:**\
+> 모든 사용자 지정 옵션(예: silent 모드의 `-s` 또는 帯域幅 제한의 `--limit-rate`)은 다운로드되는 모든 파일에 적용됩니다.
 
 ### Multiple File Download
 
-To download files from different URLs, you need to specify the `-O` option multiple times:
+서로 다른 URL에서 파일을 다운로드하려면 `-O` 옵션을 여러 번 지정해야 합니다:
 
 ```powershell
-curl -O "https://i.imgur.com/CSRiAeN.jpg" -O "https://brightdata.com/wp-content/uploads/2020/12/upload_blog_20201220_153903.svg"
+curl -O "https://i.imgur.com/CSRiAeN.jpg" -O "https://brightdata.co.kr/wp-content/uploads/2020/12/upload_blog_20201220_153903.svg"
 ```
 
-The output will contain a download bar per given URL:
+출력에는 지정된 각 URL별로 다운로드 바가 포함됩니다:
 
 ```
   % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
@@ -275,47 +275,47 @@ The output will contain a download bar per given URL:
 100 22467    0 22467    0     0  34657      0 --:--:-- --:--:-- --:--:-- 34724
 ```
 
-Similarly, you can use multiple `-o` options to define custom names for files:
+마찬가지로 `-o` 옵션을 여러 번 사용하여 파일의 사용자 지정 이름을 정의할 수 있습니다:
 
 ```powershell
-curl "https://i.imgur.com/CSRiAeN.jpg" -o "logo.jpg" "https://brightdata.com/wp-content/uploads/2020/12/upload_blog_20201220_153903.svg" -o "blog_post.svg"
+curl "https://i.imgur.com/CSRiAeN.jpg" -o "logo.jpg" "https://brightdata.co.kr/wp-content/uploads/2020/12/upload_blog_20201220_153903.svg" -o "blog_post.svg"
 ```
 
-You can also mix `-O` and `-o` options:
+또한 `-O` 및 `-o` 옵션을 혼합해서 사용할 수도 있습니다:
 
 ```powershell
-curl "https://i.imgur.com/CSRiAeN.jpg" -o "logo.jpg" -O "https://brightdata.com/wp-content/uploads/2020/12/upload_blog_20201220_153903.svg"
+curl "https://i.imgur.com/CSRiAeN.jpg" -o "logo.jpg" -O "https://brightdata.co.kr/wp-content/uploads/2020/12/upload_blog_20201220_153903.svg"
 ```
 
-> **Note:**\
-> Other options like `-v`, `-s` or `--limit-rate` apply to all URLs, so they must be specified once.
+> **참고:**\
+> `-v`, `-s` 또는 `--limit-rate` 같은 다른 옵션은 모든 URL에 적용되므로 한 번만 지정해야 합니다.
 
 ## Best Practices When Downloading Files with cURL
 
-Below is a list of some of the most important cURL file download best practices:
+아래는 cURL 파일 다운로드와 관련된 가장 중요한 모범 사례 목록입니다:
 
-- **Use `curl.exe` instead of curl on Windows** to avoid the conflict with the `Invoke-WebRequest` cmdlet.
-- **Ignore HTTPS and SSL/TLS errors** with the `-k` (or `--insecure`) option.
-- **Specify the right HTTP methods**: Use the `-X` option to specify GET, POST, or PUT.
-- **Enclose URLs in quotes and escape special characters** with `\` to avoid issues with spaces, ampersands, etc.
-- **Specify a proxy to protect your identity**: Use the `-x` (or `--proxy`) option .
-- **Save and reuse cookies across different requests**: Use the `-c` and `-b` options respectively.
-- **Limit download speed for better control**: Use the `--limit-rate` option.
-- **Add verbose output for debugging**: Use the `-v` option.
-- **Check for error responses**: Always check the HTTP response codes using the `-w` option.
+- Windows에서는 `Invoke-WebRequest` cmdlet과의 충돌을 피하기 위해 **curl 대신 `curl.exe`를 사용하십시오**.
+- `-k` (또는 `--insecure`) 옵션으로 **HTTPS 및 SSL/TLS 오류를 무시하십시오**.
+- **올바른 HTTP 메서드를 지정하십시오**: `-X` 옵션을 사용해 GET, POST 또는 PUT을 지정합니다.
+- 공백, 앰퍼샌드 등으로 인한 문제를 피하기 위해 **URL을 따옴표로 감싸고 특수 문자는 `\`로 이스케이프하십시오**.
+- **신원을 보호하기 위해 プロキ시를 지정하십시오**: `-x` (또는 `--proxy`) 옵션을 사용합니다 .
+- 서로 다른 リクエスト 간에 **Cookie를 저장하고 재사용하십시오**: 각각 `-c` 및 `-b` 옵션을 사용합니다.
+- **더 나은 제어를 위해 다운로드 속도를 제한하십시오**: `--limit-rate` 옵션을 사용합니다.
+- **디버깅을 위해 verbose 출력을 추가하십시오**: `-v` 옵션을 사용합니다.
+- **오류 レスポンス를 확인하십시오**: `-w` 옵션을 사용해 HTTP レスポンス 코드를 항상 확인하십시오.
 
 ## cURL vs Wget for Downloading Files
 
-- **cURL** has more granular control over data transfer, supports custom headers, authentication, and more protocols.
-- **Wget** is simpler and better suited for bulk downloads, recursion, and handling interrupted transfers.
+- **cURL**은 데이터 전송에 대해 더 세밀한 제어가 가능하며, 사용자 지정 ヘッダー, 認証, 더 많은 프로토콜을 지원합니다.
+- **Wget**은 더 단순하며, 대량 다운로드, 재귀 처리, 중단된 전송 처리에 더 적합합니다.
 
 ## Conclusion
 
-Every time you make an HTTP request, you leave traces on the internet. To protect your identity, privacy, and enhance your security, consider integrating a proxy with cURL:
+HTTP リクエ스트를 할 때마다 인터넷에 흔적이 남습니다. 신원과 프라이버시를 보호하고 보안을 강화하기 위해, cURL에 プロキ시를 통합하는 것을 고려해 보십시오:
 
-- [Datacenter proxies](https://brightdata.com/proxy-types/datacenter-proxies) – Over 770,000 datacenter IPs.
-- [Residential proxies](https://brightdata.com/proxy-types/residential-proxies) – Over 72M residential IPs in more than 195 countries.
-- [ISP proxies](https://brightdata.com/proxy-types/isp-proxies) – Over 700,000 ISP IPs.
-- [Mobile proxies](https://brightdata.com/proxy-types/mobile-proxies) – Over 7M mobile IPs.
+- [Datacenter proxies](https://brightdata.co.kr/proxy-types/datacenter-proxies) – 770,000개 이상의 データセンタープロキ시 IP.
+- [Residential proxies](https://brightdata.co.kr/proxy-types/residential-proxies) – 195개 이상의 국가에서 7,200만 개 이상의 レジデンシャルプロキシ IP.
+- [ISP proxies](https://brightdata.co.kr/proxy-types/isp-proxies) – 700,000개 이상의 ISPプロキシ IP.
+- [Mobile proxies](https://brightdata.co.kr/proxy-types/mobile-proxies) – 700만 개 이상의 モバイルプロキシ IP.
 
-[Sign up now](https://brightdata.com) and test our proxies and scraping solutions for free!
+[Sign up now](https://brightdata.co.kr) and test our proxies and scraping solutions for free!
