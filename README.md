@@ -1,6 +1,6 @@
 # 파일 다운로드를 위한 cURL 가이드
 
-[![Promo](https://github.com/luminati-io/LinkedIn-Scraper/blob/main/Proxies%20and%20scrapers%20GitHub%20bonus%20banner.png)](https://brightdata.co.kr/) 
+[![Promo](https://github.com/bright-kr/LinkedIn-Scraper/blob/main/Proxies%20and%20scrapers%20GitHub%20bonus%20banner.png)](https://brightdata.co.kr/) 
 
 이 가이드에서는 다음 내용을 확인하실 수 있습니다:
 
@@ -23,7 +23,7 @@ curl -O <file_url>
 ```
 
 > 💡 **중요:**
-> Windows에서는 `curl`이 Windows PowerShell에서 [`Invoke-WebRequest`](https://github.com/luminati-io/Invoke-web-request-proxy)의 별칭(alias)입니다. 충돌을 피하려면 `curl`을 `curl.exe`로 바꾸어 사용하십시오.
+> Windows에서는 `curl`이 Windows PowerShell에서 [`Invoke-WebRequest`](https://github.com/bright-kr/Invoke-web-request-proxy)의 별칭(alias)입니다. 충돌을 피하려면 `curl`을 `curl.exe`로 바꾸어 사용하십시오.
 
 [`-O`](https://curl.se/docs/manpage.html#-O) 및 `--remote-name` 플래그는 cURL이 다운로드한 파일을 원래 이름으로 저장하도록 지시합니다:
 
@@ -46,7 +46,7 @@ curl -O "https://i.imgur.com/CSRiAeN.jpg"
 
 진행률 표시줄이 100%에 도달하면, cURL 명령을 실행한 폴더에 `CSRiAeN.jpg`라는 파일이 나타납니다:
 
-![The downloaded CSRiAeN.jpg file in the folder where cURL was launched](https://github.com/luminati-io/curl-download-files/blob/main/image-37.png)
+![The downloaded CSRiAeN.jpg file in the folder where cURL was launched](https://github.com/bright-kr/curl-download-files/blob/main/image-37.png)
 
 cURL 및 해당 옵션에 대한 자세한 내용은 [cURL 가이드를 읽어보십시오](https://brightdata.co.kr/blog/web-data/what-is-curl).
 
@@ -58,7 +58,7 @@ cURL 및 해당 옵션에 대한 자세한 내용은 [cURL 가이드를 읽어�
 
 기본적으로 `-O` 옵션은 다운로드한 파일을 원래 이름으로 저장합니다. URL의 원격 파일에 이름이 포함되어 있지 않으면, cURL은 확장자가 없는 `curl_response`라는 파일을 생성합니다:
 
-![The default curl_response file in the folder where cURL was launched](https://github.com/luminati-io/curl-download-files/blob/main/image-38.png)
+![The default curl_response file in the folder where cURL was launched](https://github.com/bright-kr/curl-download-files/blob/main/image-38.png)
 
 또한 cURL은 해당 동작을 알리기 위해 경고를 출력합니다:
 
@@ -74,7 +74,7 @@ curl "https://i.imgur.com/CSRiAeN.jpg" -o "logo.jpg"
 
 cURL은 지정된 파일 URL로 GET リクエスト를 수행하고 다운로드된 콘텐츠를 `-o` 뒤에 지정된 이름으로 저장합니다. 이번에는 출력 파일이 `logo.jpg` 파일이 됩니다:
 
-![The downloaded logo.jpg file in the folder where cURL was launched](https://github.com/luminati-io/curl-download-files/blob/main/image-39.png)
+![The downloaded logo.jpg file in the folder where cURL was launched](https://github.com/bright-kr/curl-download-files/blob/main/image-39.png)
 
 ### Follow Redirects
 
