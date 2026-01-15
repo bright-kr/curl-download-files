@@ -72,7 +72,7 @@ Warning: No remote file name, uses "curl_response"
 curl "https://i.imgur.com/CSRiAeN.jpg" -o "logo.jpg"
 ```
 
-cURL은 지정된 파일 URL로 GET リクエスト를 수행하고 다운로드된 콘텐츠를 `-o` 뒤에 지정된 이름으로 저장합니다. 이번에는 출력 파일이 `logo.jpg` 파일이 됩니다:
+cURL은 지정된 파일 URL로 GET 요청를 수행하고 다운로드된 콘텐츠를 `-o` 뒤에 지정된 이름으로 저장합니다. 이번에는 출력 파일이 `logo.jpg` 파일이 됩니다:
 
 ![The downloaded logo.jpg file in the folder where cURL was launched](https://github.com/bright-kr/curl-download-files/blob/main/image-39.png)
 
@@ -86,11 +86,11 @@ cURL이 리다이렉트를 따라가도록 지시하려면 [`-L`](https://curl.s
 curl -O -L "<file_url>"
 ```
 
-그렇지 않으면 cURL은 리다이렉션 レスポンス ヘッダー를 출력하고 `Location` ヘッダー에 제공된 새 위치를 따라가지 않습니다.
+그렇지 않으면 cURL은 리다이렉션 응답 헤더를 출력하고 `Location` 헤더에 제공된 새 위치를 따라가지 않습니다.
 
 ### Authenticate to the Server
 
-일부 서버는 접근을 제한하고 사용자 認証을 요구합니다. 기본 HTTP 또는 FTP 認証을 수행하려면 [`-u`](https://curl.se/docs/manpage.html#-u) (또는 `--user`) 옵션을 사용하고 다음 형식으로 사용자 이름과 비밀번호를 지정하십시오:
+일부 서버는 접근을 제한하고 사용자 인증을 요구합니다. 기본 HTTP 또는 FTP 인증을 수행하려면 [`-u`](https://curl.se/docs/manpage.html#-u) (또는 `--user`) 옵션을 사용하고 다음 형식으로 사용자 이름과 비밀번호를 지정하십시오:
 
 ```powershell
 <username>:<password>
@@ -100,13 +100,13 @@ curl -O -L "<file_url>"
 
 `<password>` 문자열은 선택 사항입니다. 사용자 이름만 지정하면 cURL이 비밀번호 입력을 요청합니다.
 
-서버 認証을 사용하여 cURL로 파일을 다운로드하는 문법은 다음과 같습니다:
+서버 인증을 사용하여 cURL로 파일을 다운로드하는 문법은 다음과 같습니다:
 
 ```powershell
 curl -O -u <username>:<password> <file_url>
 ```
 
-예를 들어, 다음 명령을 사용하면 認証이 필요한 URL에서 파일을 다운로드할 수 있습니다:
+예를 들어, 다음 명령을 사용하면 인증이 필요한 URL에서 파일을 다운로드할 수 있습니다:
 
 ```powershell
 curl -O -u "myUser:myPassword" "https://example.com/secret.txt"
@@ -114,7 +114,7 @@ curl -O -u "myUser:myPassword" "https://example.com/secret.txt"
 
 ### Impose Bandwidth Restrictions
 
-사용 가능한 전체 帯域幅을 사용하지 않으려면, [`--limit-rate`](https://curl.se/docs/manpage.html#--limit-rate) 옵션 뒤에 설정하려는 최대 다운로드 속도를 지정하십시오:
+사용 가능한 전체 대역폭을 사용하지 않으려면, [`--limit-rate`](https://curl.se/docs/manpage.html#--limit-rate) 옵션 뒤에 설정하려는 최대 다운로드 속도를 지정하십시오:
 
 ```powershell
 curl -O --limit-rate 5k "https://i.imgur.com/CSRiAeN.jpg"
@@ -127,11 +127,11 @@ curl -O --limit-rate 5k "https://i.imgur.com/CSRiAeN.jpg"
 100 35354  100 35354    0     0   5166      0  0:00:06  0:00:06 --:--:--  5198
 ```
 
-`--limit-rate` 옵션은 네트워크 과부하를 방지하고, 帯域幅 제한을 준수하거나, 테스트 목적의 느린 네트워크 조건을 시뮬레이션하기 위해 帯域幅 사용량을 제어하는 데 도움이 됩니다.
+`--limit-rate` 옵션은 네트워크 과부하를 방지하고, 대역폭 제한을 준수하거나, 테스트 목적의 느린 네트워크 조건을 시뮬레이션하기 위해 대역폭 사용량을 제어하는 데 도움이 됩니다.
 
 ### Download Through a Proxy Server
 
-프라이버시를 유지하거나 [レート制限 같은 アンチボット 조치](https://brightdata.co.kr/blog/web-data/anti-scraping-techniques)를 피하려면, IPアドレス를 숨기고 [`-x`](https://curl.se/docs/manpage.html#-x) (또는 `--proxy`) 옵션을 사용해 プロキシ를 통해 リクエスト를 라우팅하십시오:
+프라이버시를 유지하거나 [속도 제한 같은 안티봇 조치](https://brightdata.co.kr/blog/web-data/anti-scraping-techniques)를 피하려면, IP 주소를 숨기고 [`-x`](https://curl.se/docs/manpage.html#-x) (또는 `--proxy`) 옵션을 사용해 프록시를 통해 요청를 라우팅하십시오:
 
 ```powershell
 curl -x <proxy_url> -O <file_url>
@@ -143,7 +143,7 @@ curl -x <proxy_url> -O <file_url>
 [protocol://]host[:port]
 ```
 
-프로キ시 URL은 HTTP, HTTPS 또는 SOCKS プロキシ를 사용하는지에 따라 달라집니다. 더 자세한 지침은 [cURL プロキ시 통합 가이드](https://brightdata.co.kr/blog/proxy-101/curl-with-proxies)를 참조하십시오.
+프로キ시 URL은 HTTP, HTTPS 또는 SOCKS 프록시를 사용하는지에 따라 달라집니다. 더 자세한 지침은 [cURL プロキ시 통합 가이드](https://brightdata.co.kr/blog/proxy-101/curl-with-proxies)를 참조하십시오.
 
 예를 들어 HTTP プロキ시를 사용한다면, 명령은 다음과 같습니다:
 
@@ -254,7 +254,7 @@ curl -O "https://example.com/files/file[1-3].jpg"
 ```
 
 > **참고:**\
-> 모든 사용자 지정 옵션(예: silent 모드의 `-s` 또는 帯域幅 제한의 `--limit-rate`)은 다운로드되는 모든 파일에 적용됩니다.
+> 모든 사용자 지정 옵션(예: silent 모드의 `-s` 또는 대역폭 제한의 `--limit-rate`)은 다운로드되는 모든 파일에 적용됩니다.
 
 ### Multiple File Download
 
@@ -299,14 +299,14 @@ curl "https://i.imgur.com/CSRiAeN.jpg" -o "logo.jpg" -O "https://brightdata.co.k
 - **올바른 HTTP 메서드를 지정하십시오**: `-X` 옵션을 사용해 GET, POST 또는 PUT을 지정합니다.
 - 공백, 앰퍼샌드 등으로 인한 문제를 피하기 위해 **URL을 따옴표로 감싸고 특수 문자는 `\`로 이스케이프하십시오**.
 - **신원을 보호하기 위해 プロキ시를 지정하십시오**: `-x` (또는 `--proxy`) 옵션을 사용합니다 .
-- 서로 다른 リクエスト 간에 **Cookie를 저장하고 재사용하십시오**: 각각 `-c` 및 `-b` 옵션을 사용합니다.
+- 서로 다른 요청 간에 **Cookie를 저장하고 재사용하십시오**: 각각 `-c` 및 `-b` 옵션을 사용합니다.
 - **더 나은 제어를 위해 다운로드 속도를 제한하십시오**: `--limit-rate` 옵션을 사용합니다.
 - **디버깅을 위해 verbose 출력을 추가하십시오**: `-v` 옵션을 사용합니다.
-- **오류 レスポンス를 확인하십시오**: `-w` 옵션을 사용해 HTTP レスポンス 코드를 항상 확인하십시오.
+- **오류 응답를 확인하십시오**: `-w` 옵션을 사용해 HTTP 응답 코드를 항상 확인하십시오.
 
 ## cURL vs Wget for Downloading Files
 
-- **cURL**은 데이터 전송에 대해 더 세밀한 제어가 가능하며, 사용자 지정 ヘッダー, 認証, 더 많은 프로토콜을 지원합니다.
+- **cURL**은 데이터 전송에 대해 더 세밀한 제어가 가능하며, 사용자 지정 헤더, 인증, 더 많은 프로토콜을 지원합니다.
 - **Wget**은 더 단순하며, 대량 다운로드, 재귀 처리, 중단된 전송 처리에 더 적합합니다.
 
 ## Conclusion
@@ -314,8 +314,8 @@ curl "https://i.imgur.com/CSRiAeN.jpg" -o "logo.jpg" -O "https://brightdata.co.k
 HTTP リクエ스트를 할 때마다 인터넷에 흔적이 남습니다. 신원과 프라이버시를 보호하고 보안을 강화하기 위해, cURL에 プロキ시를 통합하는 것을 고려해 보십시오:
 
 - [Datacenter proxies](https://brightdata.co.kr/proxy-types/datacenter-proxies) – 770,000개 이상의 データセンタープロキ시 IP.
-- [Residential proxies](https://brightdata.co.kr/proxy-types/residential-proxies) – 195개 이상의 국가에서 7,200만 개 이상의 レジデンシャルプロキシ IP.
-- [ISP proxies](https://brightdata.co.kr/proxy-types/isp-proxies) – 700,000개 이상의 ISPプロキシ IP.
-- [Mobile proxies](https://brightdata.co.kr/proxy-types/mobile-proxies) – 700만 개 이상의 モバイルプロキシ IP.
+- [Residential proxies](https://brightdata.co.kr/proxy-types/residential-proxies) – 195개 이상의 국가에서 7,200만 개 이상의 レジデンシャル프록시 IP.
+- [ISP proxies](https://brightdata.co.kr/proxy-types/isp-proxies) – 700,000개 이상의 ISP프록시 IP.
+- [Mobile proxies](https://brightdata.co.kr/proxy-types/mobile-proxies) – 700만 개 이상의 モバイル프록시 IP.
 
 [Sign up now](https://brightdata.co.kr) and test our proxies and scraping solutions for free!
